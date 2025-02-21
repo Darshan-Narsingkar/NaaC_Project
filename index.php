@@ -162,16 +162,16 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'faculty') {
         
                 <a onclick="toggleDropdown('criteria3_4')">3.4 Extension Activities</a>
                 <div id="criteria3_4" class="dropdown-content">
-                    <a onclick="loadContent('Community Outreach Programs')">- Community Outreach Programs</a>
-                    <a onclick="loadContent('Social Responsibility Initiatives')">- Social Responsibility Initiatives</a>
+                    <a onclick="loadContent('Extension and Outreach Program')">- No of extension & Outreach Program</a>
+                    <a onclick="loadContent('Awards & Recognition Received')">- Awards & Recognition Received</a>
                     <a onclick="loadContent('Collaborations with NGOs')">- Collaborations with NGOs</a>
                 </div>
         
                 <a onclick="toggleDropdown('criteria3_5')">3.5 Collaboration</a>
                 <div id="criteria3_5" class="dropdown-content">
-                    <a onclick="loadContent('MoUs with Institutions')">- MoUs with Institutions</a>
-                    <a onclick="loadContent('Industry-Academia Linkages')">- Industry-Academia Linkages</a>
-                    <a onclick="loadContent('Collaborative Research')">- Collaborative Research</a>
+                    <a onclick="loadMoUsWithInstitutions()">- MoUs with Institutions</a>
+                    <a onclick="loadIndustryAcdemiaLinkages()">- Industry-Academia Linkages</a>
+                    <a onclick="loadMoUsSignedDuringTheYear()">- MoU's Signed During the Year</a>
                 </div>
         
             </div>
@@ -530,6 +530,20 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'faculty') {
     }
 
 
+
+
+
+    function loadMoUsSignedDuringTheYear() {
+        fetch('MoUs_data.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('mainContent').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading Campus Area form:', error);
+                document.getElementById('mainContent').innerHTML = '<p>Unable to load the Campus Area form. Please try again later.</p>';
+            });
+    }
 
     
         function toggleDropdown(id) {

@@ -137,6 +137,7 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
         
 
 
+       
         <div class="dropdown">
             <button onclick="toggleDropdown('criteria3')"><i class="fas fa-lightbulb"></i> Criteria 3: Research, Innovations, and Extension</button>
             <div id="criteria3" class="dropdown-content">
@@ -157,23 +158,23 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
         
                 <a onclick="toggleDropdown('criteria3_3')">3.3 Research Publications and Awards</a>
                 <div id="criteria3_3" class="dropdown-content">
-                    <a onclick="loadContent('Research Papers Published')">- Research Papers Published</a>
-                    <a onclick="loadContent('Books and Chapters Published')">- Books and Chapters Published</a>
-                    <a onclick="loadContent('Awards for Research')">- Awards for Research</a>
+                    <a onclick="loadResearchPapers()">- Research Papers Published</a>
+                    <a onclick="loadChaptersPublished()">- Books and Chapters Published</a>
+                    <a onclick="loadResearchAwards()">- Awards for Research</a>
                 </div>
         
                 <a onclick="toggleDropdown('criteria3_4')">3.4 Extension Activities</a>
                 <div id="criteria3_4" class="dropdown-content">
-                    <a onclick="loadContent('Community Outreach Programs')">- Community Outreach Programs</a>
-                    <a onclick="loadContent('Social Responsibility Initiatives')">- Social Responsibility Initiatives</a>
+                    <a onclick="loadContent('Extension and Outreach Program')">- No of extension & Outreach Program</a>
+                    <a onclick="loadContent('Awards & Recognition Received')">- Awards & Recognition Received</a>
                     <a onclick="loadContent('Collaborations with NGOs')">- Collaborations with NGOs</a>
                 </div>
         
                 <a onclick="toggleDropdown('criteria3_5')">3.5 Collaboration</a>
                 <div id="criteria3_5" class="dropdown-content">
-                    <a onclick="loadContent('MoUs with Institutions')">- MoUs with Institutions</a>
-                    <a onclick="loadContent('Industry-Academia Linkages')">- Industry-Academia Linkages</a>
-                    <a onclick="loadContent('Collaborative Research')">- Collaborative Research</a>
+                    <a onclick="loadMoUsWithInstitutions()()">- MoUs with Institutions</a>
+                    <a onclick="loadIndustryAcdemiaLinkages()">- Industry-Academia Linkages</a>
+                    <a onclick="loadMoUsSignedDuringTheYear()">- MoU's Signed During the Year</a>
                 </div>
         
             </div>
@@ -369,10 +370,6 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
                     <a onclick="loadContent('Community and Social Impact')">- Community and Social Impact</a>
                     <a onclick="loadContent('Achievements and Recognitions')">- Achievements and Recognitions</a>
                 </div>
-                
-        
-
-        
             </div>
         </div>
 
@@ -421,7 +418,7 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
     <script>
 
             function loadCampusArea() {
-        fetch('campusarea.php')
+        fetch('hcampus.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('mainContent').innerHTML = data;
@@ -434,7 +431,7 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
 
 
          function loadClassroomFacility() {
-        fetch('classroom_facilities.php')
+        fetch('hclassroom_facilities.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('mainContent').innerHTML = data;
@@ -447,7 +444,7 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
 
 
       function loadLaboratoryFacility() {
-        fetch('laboratory_facilities.php')
+        fetch('hlaboratory_facilities.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('mainContent').innerHTML = data;
@@ -458,6 +455,17 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
             });
     }
 
+     function loadMoUsSignedDuringTheYear() {
+        fetch('hMoUs_data.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('mainContent').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading Campus Area form:', error);
+                document.getElementById('mainContent').innerHTML = '<p>Unable to load the Campus Area form. Please try again later.</p>';
+            });
+    }
 
     function loadUser() {
         fetch('User.php')
