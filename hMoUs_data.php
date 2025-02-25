@@ -15,6 +15,9 @@ if ($conn->connect_error) {
 // Fetch data from the database
 $sql = "SELECT * FROM MoUs_data";
 $result = $conn->query($sql);
+
+// Check for success message
+$msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +26,6 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Table with Delete</title>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery for AJAX -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -92,6 +92,10 @@ $result = $conn->query($sql);
 <body>
 
 <div class="container">
+    <?php if ($msg): ?>
+        <div style="color: green;"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
+    
     <table id="myTable">
         <thead>
             <tr>
@@ -103,11 +107,11 @@ $result = $conn->query($sql);
                 <th>Actions</th>
             </tr>
         </thead>
-       <tbody>
+        <tbody>
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr data-id='{$row['id']}'>
+                    echo "<tr>
                             <td>{$row['id']}</td>
                             <td>{$row['organization']}</td>
                             <td>{$row['date_of_mou_signed']}</td>
@@ -115,7 +119,9 @@ $result = $conn->query($sql);
                             <td>{$row['teachers_participated']}</td>
                             <td>
                                 <button class='action-btn accept-btn'><i class='fas fa-check'></i></button>
-                                <button class='action-btn reject-btn' data-id='{$row['id']}'><i class='fas fa-times'></i></button>
+                                <a href='delete_record.php?id={$row['id']}' onclick=\"return confirm('Are you sure you want to delete this record?');\">
+                                    <button class='action-btn reject-btn'><i class='fas fa-times'></i></button>
+                                </a>
                                 <button class='action-btn edit-btn'><i class='fas fa-edit'></i></button>
                             </td>
                           </tr>";
@@ -127,32 +133,6 @@ $result = $conn->query($sql);
         </tbody>
     </table>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $(".reject-btn").click(function () {
-            var row = $(this).closest("tr");
-            var id = $(this).data("id");
-
-            if (confirm("Are you sure you want to delete this entry?")) {
-                $.ajax({
-                    url: "delete_record.php",
-                    type: "POST",
-                    data: { id: id },
-                    success: function (response) {
-                        if (response.trim() === "success") {
-                            row.fadeOut(500, function () {
-                                $(this).remove();
-                            });
-                        } else {
-                            alert("Error deleting record. Please try again.");
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>
 
 </body>
 </html>
