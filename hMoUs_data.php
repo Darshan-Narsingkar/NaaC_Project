@@ -12,14 +12,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Accept action
+if (isset($_GET['accept_id'])) {
+    $accept_id = intval($_GET['accept_id']);
+    $update_sql = "UPDATE MoUs_data SET status = 1 WHERE id = $accept_id";
+    if ($conn->query($update_sql) === TRUE) {
+        header("Location: hMoUs_data.php?msg=Record accepted successfully");
+        exit();
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
+}
+
 // Fetch data from the database
-$sql = "SELECT * FROM MoUs_data";
+$sql = "SELECT * FROM MoUs_data WHERE status = 0"; // Only show unaccepted records
 $result = $conn->query($sql);
 
 // Check for success message
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,10 +129,14 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
                             <td>{$row['purpose_activities']}</td>
                             <td>{$row['teachers_participated']}</td>
                             <td>
-                                <button class='action-btn accept-btn'><i class='fas fa-check'></i></button>
+                                <a href='hMoUs_data.php?accept_id={$row['id']}' onclick=\"return confirm('Are you sure you want to accept this record?');\">
+                                    <button class='action-btn accept-btn'><i class='fas fa-check'></i></button>
+                                </a>
+
                                 <a href='delete_record.php?id={$row['id']}' onclick=\"return confirm('Are you sure you want to delete this record?');\">
                                     <button class='action-btn reject-btn'><i class='fas fa-times'></i></button>
                                 </a>
+
                                 <button class='action-btn edit-btn'><i class='fas fa-edit'></i></button>
                             </td>
                           </tr>";

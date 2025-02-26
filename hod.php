@@ -172,8 +172,8 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
         
                 <a onclick="toggleDropdown('criteria3_5')">3.5 Collaboration</a>
                 <div id="criteria3_5" class="dropdown-content">
-                    <a onclick="loadMoUsWithInstitutions()()">- MoUs with Institutions</a>
-                    <a onclick="loadIndustryAcdemiaLinkages()">- Industry-Academia Linkages</a>
+                    <a onclick="loadMoUsWithInstitutions()" >- MoUs with Institutions</a>
+                    <a onclick="loadIndustryAcdemiaLinkages()" >- Industry-Academia Linkages</a>
                     <a onclick="loadMoUsSignedDuringTheYear()">- MoU's Signed During the Year</a>
                 </div>
         
