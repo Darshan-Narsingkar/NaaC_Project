@@ -373,15 +373,6 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
             </div>
         </div>
 
-        <div class="dropdown">
-    <button onclick="toggleDropdown('User')">
-        <i class="fas fa-user-graduate"></i> User
-    </button>
-    <div id="User" class="dropdown-content">
-        <a onclick="loadUser()">- User Deatails</a>
-    </div>
-</div>
-
         
         </div>
     </div>
@@ -467,18 +458,7 @@ if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'hod') {
             });
     }
 
-    function loadUser() {
-        fetch('User.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('mainContent').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error loading Campus Area form:', error);
-                document.getElementById('mainContent').innerHTML = '<p>Unable to load the Campus Area form. Please try again later.</p>';
-            });
-    }
-
+ 
 
     
         function toggleDropdown(id) {

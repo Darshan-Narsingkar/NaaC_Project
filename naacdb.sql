@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2025 at 05:00 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Feb 21, 2025 at 06:54 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `naac_db`
+-- Database: `naacdb`
 --
 
 -- --------------------------------------------------------
@@ -103,8 +103,7 @@ CREATE TABLE `campus_area` (
 
 INSERT INTO `campus_area` (`id`, `total_area`, `built_up_area`, `green_area`, `playground_area`, `open_space`, `parking_area`, `administrator_block_area`, `academic_block_area`, `auditorium_area`, `residential_area`, `sustainability_area`, `hostel_area`) VALUES
 (1, 123.00, 1234.00, 1234.00, 123.00, 6543.00, 8765.00, 8765.00, 654.00, 654.00, 543.00, 65.00, 76.00),
-(2, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00),
-(3, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00);
+(4, 2122.00, 99999999.99, 511.00, 121.00, 2121.00, 212.00, 212.00, 212.00, 212.00, 21212515.00, 54521.00, 115.00);
 
 -- --------------------------------------------------------
 
@@ -132,7 +131,8 @@ CREATE TABLE `classroom_facilities` (
 --
 
 INSERT INTO `classroom_facilities` (`id`, `no_of_classrooms`, `seating_capacity`, `avg_size_classroom`, `no_of_projectors`, `no_of_smart_boards`, `no_of_audio_systems`, `no_of_au_facilities`, `no_of_air_conditioners`, `no_of_boards`, `internet_connectivity`, `lighting`) VALUES
-(1, 123, 45, 67, 890, 1234, 456, 2345, 3456, 345, 'Yes', 'Yes');
+(1, 123, 45, 67, 890, 1234, 456, 2345, 3456, 345, 'Yes', 'Yes'),
+(2, 5, 500, 2400, 15, 5, 5, 12, 10, 14, '5', '25');
 
 -- --------------------------------------------------------
 
@@ -160,41 +160,39 @@ INSERT INTO `department` (`id`, `department_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculty_info`
+-- Table structure for table `faculty`
 --
 
-CREATE TABLE `faculty_info` (
+CREATE TABLE `faculty` (
   `faculty_id` varchar(50) NOT NULL,
   `initials` varchar(10) DEFAULT NULL,
   `first_name` varchar(100) NOT NULL,
   `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) NOT NULL,
-  `gender` enum('Male','Female','Other') NOT NULL,
-  `date_of_birth` date NOT NULL,
-  `blood_group` enum('A+','A-','B+','B-','AB+','AB-','O+','O-') NOT NULL,
-  `department_id` int(11) NOT NULL,
-  `designation` varchar(50) DEFAULT NULL,
-  `joining_date` date NOT NULL,
-  `qualification` varchar(100) NOT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `blood_group` varchar(5) DEFAULT NULL,
+  `department` int(11) DEFAULT NULL,
+  `designation` varchar(100) DEFAULT NULL,
+  `joining_date` date DEFAULT NULL,
+  `qualification` varchar(100) DEFAULT NULL,
   `specialization` varchar(100) DEFAULT NULL,
-  `experience` int(11) NOT NULL,
+  `experience` int(11) DEFAULT NULL,
   `official_email` varchar(100) NOT NULL,
   `personal_email` varchar(100) DEFAULT NULL,
+  `phone_number` varchar(15) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
-  `postal_address` text NOT NULL,
-  `permanent_address` text NOT NULL
+  `postal_address` text DEFAULT NULL,
+  `permanent_address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `faculty_info`
+-- Dumping data for table `faculty`
 --
 
-INSERT INTO `faculty_info` (`faculty_id`, `initials`, `first_name`, `middle_name`, `last_name`, `gender`, `date_of_birth`, `blood_group`, `department_id`, `designation`, `joining_date`, `qualification`, `specialization`, `experience`, `official_email`, `personal_email`, `password`, `phone_number`, `postal_address`, `permanent_address`) VALUES
-('1', 'JHS', 'joe', 'heart', 'smith', 'Male', '1999-06-08', 'B-', 1, 'AP', '2015-06-08', 'BE', 'IT', 9, 'abc@gmail.com', 'abc@gmail.com', '', '9876543210', 'amravati', 'amravati'),
-('12', '', 'james', 'heim', 'bee', 'Male', '2000-06-08', 'A-', 3, '234', '0000-00-00', 'BE', 'CSE', 0, 'abcd@gmail.com', 'abcd12@gmail.com', '', '9876163820', 'yavatmal', 'yavatmal'),
-('21be0560', 'JHM', 'jay', 'hari', 'mate', 'Male', '2002-11-20', 'B-', 4, '0', '0000-00-00', 'BE', 'ME', 1, 'abc12@gmail.com', 'abc12@gmail.com', '', '9807615243', 'washim', 'washim'),
-('21be0807', 'JHM', 'jay', 'hari', 'mate', 'Male', '2002-11-20', 'B-', 4, '0', '0000-00-00', 'BE', 'ME', 1, 'abc123@gmail.com', 'abc123@gmail.com', '', '9807615243', 'washim', 'washim');
+INSERT INTO `faculty` (`faculty_id`, `initials`, `first_name`, `middle_name`, `last_name`, `gender`, `date_of_birth`, `blood_group`, `department`, `designation`, `joining_date`, `qualification`, `specialization`, `experience`, `official_email`, `personal_email`, `phone_number`, `password`, `postal_address`, `permanent_address`) VALUES
+('10', NULL, 'Darshan', 'Santosh ', 'Narsingkar', 'Male', '2025-01-02', 'A+', 1, 'software engineer', '2025-01-14', 'ff', 'Data Structure', 0, 'darshannarsingkar786@gmail.com', 'fddf@gmail.com', '12356786655', 'Darshan', 'fdff', 'fff'),
+('5', NULL, 'abc', 'fsaa', 'dda', 'Male', '2025-01-02', 'A-', 3, 'software engineer', '2025-01-01', 'dff', 'ddd', 0, 'abc@gmail.com', 'fff@gmail.com', '1234567892', 'abc', 'fgfg', 'ffgfg');
 
 -- --------------------------------------------------------
 
@@ -344,6 +342,42 @@ INSERT INTO `laboratory_resources` (`id`, `no_of_books`, `no_of_journals`, `eboo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mous_data`
+--
+
+CREATE TABLE `mous_data` (
+  `id` int(11) NOT NULL,
+  `organization` varchar(100) NOT NULL,
+  `date_of_mou_signed` date NOT NULL,
+  `purpose_activities` varchar(100) NOT NULL,
+  `teachers_participated` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mous_data`
+--
+
+INSERT INTO `mous_data` (`id`, `organization`, `date_of_mou_signed`, `purpose_activities`, `teachers_participated`) VALUES
+(1, 'TCS', '2025-02-04', 'Placement Program ', 500),
+(2, 'Wipro', '2025-01-29', 'Placement Program ', 250);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mous_trash`
+--
+
+CREATE TABLE `mous_trash` (
+  `id` int(50) NOT NULL,
+  `organization` varchar(100) NOT NULL,
+  `date_of_mou_signed` date NOT NULL,
+  `purpose_activities` varchar(100) NOT NULL,
+  `teachers_participated` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `program_conducted`
 --
 
@@ -481,13 +515,12 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `faculty_info`
+-- Indexes for table `faculty`
 --
-ALTER TABLE `faculty_info`
+ALTER TABLE `faculty`
   ADD PRIMARY KEY (`faculty_id`),
   ADD UNIQUE KEY `official_email` (`official_email`),
-  ADD UNIQUE KEY `personal_email` (`personal_email`),
-  ADD KEY `department_id` (`department_id`);
+  ADD UNIQUE KEY `phone_number` (`phone_number`);
 
 --
 -- Indexes for table `grant_receive`
@@ -520,6 +553,18 @@ ALTER TABLE `laboratory_facilities`
 -- Indexes for table `laboratory_resources`
 --
 ALTER TABLE `laboratory_resources`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mous_data`
+--
+ALTER TABLE `mous_data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mous_trash`
+--
+ALTER TABLE `mous_trash`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -569,13 +614,13 @@ ALTER TABLE `book_chapter_publications`
 -- AUTO_INCREMENT for table `campus_area`
 --
 ALTER TABLE `campus_area`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `classroom_facilities`
 --
 ALTER TABLE `classroom_facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -614,6 +659,18 @@ ALTER TABLE `laboratory_resources`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `mous_data`
+--
+ALTER TABLE `mous_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mous_trash`
+--
+ALTER TABLE `mous_trash`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `program_conducted`
 --
 ALTER TABLE `program_conducted`
@@ -646,12 +703,6 @@ ALTER TABLE `research_paper_publications`
 --
 ALTER TABLE `book_chapter_publications`
   ADD CONSTRAINT `book_chapter_publications_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty_info` (`faculty_id`);
-
---
--- Constraints for table `faculty_info`
---
-ALTER TABLE `faculty_info`
-  ADD CONSTRAINT `faculty_info_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
 
 --
 -- Constraints for table `grant_receive`
